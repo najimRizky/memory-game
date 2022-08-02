@@ -17,7 +17,7 @@ const Game = () => {
         if (flipped.length < 2) {
             if (flipped.includes(id)) {
                 setFlipped(flipped.filter(flipId => flipId !== id))
-            } else {
+            } else if(!trueFlipped.includes(id)){
                 setFlipped([...flipped, id])
                 setTotalFlip(totalFlip + 1)
             }
@@ -42,15 +42,19 @@ const Game = () => {
     const checkFlipped = (): void => {
         if (tilesData[flipped[0]] === tilesData[flipped[1]]) {
             setTrueFlipped([...trueFlipped, ...flipped])
+            // setTimeout(() => {
+                setFlipped([])
+            // },)
             if (trueFlipped.length === 14) {
                 setTimeout(() => {
                     handleOpen()
                 }, 700)
             }
+        }else{
+            setTimeout(() => {
+                setFlipped([])
+            }, 900)
         }
-        setTimeout(() => {
-            setFlipped([])
-        }, 1300)
     }
 
     useEffect(() => {
@@ -81,7 +85,7 @@ const Game = () => {
                     <Grid className="tiles" sx={{ height: "100%" }} container columns={{ xs: 4 }}>
                         {tilesData.map((tileData, index) => (
                             <Grid item xs={1} sx={{ padding: "10px" }} key={index} >
-                                <Box onClick={() => flipTile(index)} className={flipped.includes(index) || trueFlipped.includes(index) ? "tile flip" : "tile"} sx={{ cursor: "pointer", height: "100%", borderRadius: "5px" }}>
+                                <Box onClick={() => flipTile(index)} className={`${flipped.includes(index) || trueFlipped.includes(index) ? "tile flip" : "tile"}`} sx={{ cursor: "pointer", height: "100%", borderRadius: "5px" }}>
                                     <Box className="tile-inner" >
                                         <Box className="tile-front" sx={{ borderRadius: "5px" }}></Box>
                                         <Box className="tile-back" sx={{ background: tileData, height: "100%", borderRadius: "5px" }}></Box>
