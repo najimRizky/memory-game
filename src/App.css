@@ -1,38 +1,104 @@
-.App {
-  text-align: center;
+.board {
+    box-shadow: 5px 5px 12px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 5px 5px 12px 2px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 5px 5px 12px 2px rgba(0, 0, 0, 0.3);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* .tile {
+    box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.15);
+    -webkit-box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.15);
+
+    perspective: 1000px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.tile-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.tile.flip .tile-inner {
+    transform: rotateY(180deg);
 }
 
-.App-link {
-  color: #61dafb;
+.tile-front, .tile-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.tile-back {
+    transform: rotateY(180deg);
+} */
+
+/*.tile-front{
+    display: none;
+} */
+
+
+/* .tile.flip .tile-back{
+    display: block;
+}
+
+.tile.flip .tile-front{
+    display: none;
+} */
+
+
+
+
+
+
+
+.tile {
+    background-color: transparent;
+    height: 100%;
+    border: 1px solid #f1f1f1;
+    perspective: 1000px;
+    /* Remove this if you don't want the 3D effect */
+    
+}
+
+.tile-inner {
+    
+    position: relative;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+.tile.flip .tile-inner {
+    transform: rotateY(180deg);
+}
+
+/* Position the front and back side */
+.tile-front, .tile-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    /* Safari */
+    backface-visibility: hidden;
+    box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.15);
+    -webkit-box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.15);
+}
+
+/* Style the front side (fallback if image is missing) */
+.tile-front {
+    background-color: #bbb;
+    color: black;
+}
+
+/* Style the back side */
+.tile-back {
+    background-color: dodgerblue;
+    color: white;
+    transform: rotateY(180deg);
 }
