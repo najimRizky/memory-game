@@ -4,64 +4,16 @@
     -moz-box-shadow: 5px 5px 12px 2px rgba(0, 0, 0, 0.3);
 }
 
-/* .tile {
-    box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.15);
-    -webkit-box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.15);
-    -moz-box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.15);
-
-    perspective: 1000px;
-}
-
-.tile-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transition: transform 0.8s;
-    transform-style: preserve-3d;
-}
-
-.tile.flip .tile-inner {
-    transform: rotateY(180deg);
-}
-
-.tile-front, .tile-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-}
-
-.tile-back {
-    transform: rotateY(180deg);
-} */
-
-/*.tile-front{
-    display: none;
-} */
-
-
-/* .tile.flip .tile-back{
-    display: block;
-}
-
-.tile.flip .tile-front{
-    display: none;
-} */
-
-
-
-
-
-
-
 .tile {
     background-color: transparent;
     height: 100%;
-    border: 1px solid #f1f1f1;
     perspective: 1000px;
+    transition: 0.3s;
     /* Remove this if you don't want the 3D effect */
-    
+}
+
+.tile:hover{
+    transform: scale(1.05);
 }
 
 .tile-inner {

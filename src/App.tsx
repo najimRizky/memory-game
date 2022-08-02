@@ -8,7 +8,7 @@ import Home from './pages/Home';
 
 function App() {
     return (
-        <Box sx={{ height: "100vh", width: "100vw", background: "#eff3f6", color: "white"}}>
+        <Box sx={{ height: "100vh", width: "100vw", background: "#eff3f6"}}>
             <Container sx={{display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
                 <BrowserRouter>
                     <Routes>

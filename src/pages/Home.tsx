@@ -9,14 +9,20 @@ const Home = () => {
         <Box>
             <Container>
                 <Box>
-                    <Typography variant="h2" component="h1" sx={{ textAlign: "center" }}>
+                    <Typography variant="h2" component="h1" sx={{ textAlign: "center", mb: "20px" }}>
                         Memory game
+                    </Typography>
+                    <Typography variant="subtitle1" component="p" sx={{ textAlign: "center", mb: "20px" }}>
+                        by: Najim Rizky
                     </Typography>
                 </Box>
                 <Box sx={{textAlign: "center"}}>
+                    <Typography variant="h6" component="p" sx={{ textAlign: "center", mb: "20px" }}>
+                        Choose mode: 
+                    </Typography>
                     <Link to={"/play"} style={{textDecoration: "none"}}>
                         <Button variant="contained" color="success">
-                            Play
+                            Color mode
                         </Button>
                     </Link>
                 </Box>
