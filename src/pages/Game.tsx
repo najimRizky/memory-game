@@ -85,7 +85,7 @@ const Game = () => {
                     <Grid className="tiles" sx={{ height: "100%" }} container columns={{ xs: 4 }}>
                         {tilesData.map((tileData, index) => (
                             <Grid item xs={1} sx={{ padding: "10px" }} key={index} >
-                                <Box onClick={() => flipTile(index)} className={`${flipped.includes(index) || trueFlipped.includes(index) ? "tile flip" : "tile"}`} sx={{ cursor: "pointer", height: "100%", borderRadius: "5px" }}>
+                                <Box onClick={() => flipTile(index)} className={`${flipped.includes(index) || trueFlipped.includes(index) ? "tile flip" : "tile"} ${trueFlipped.includes(index) ? "true" : ""}`} sx={{ cursor: "pointer", height: "100%", borderRadius: "5px" }}>
                                     <Box className="tile-inner" >
                                         <Box className="tile-front" sx={{ borderRadius: "5px" }}></Box>
                                         <Box className="tile-back" sx={{ background: tileData, height: "100%", borderRadius: "5px" }}></Box>
