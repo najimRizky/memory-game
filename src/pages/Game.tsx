@@ -1,7 +1,7 @@
 import { Grid, Typography } from "@mui/material"
 import { Box } from "@mui/system"
 import { useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import FinishModal from "../components/FinishModal"
 import Tile from "../components/Tile"
 import { generateTile } from "../utils/GameLogic"
@@ -19,7 +19,7 @@ const Game = () => {
     const handleClose = (): void => setOpenModalFinish(false);
 
     const { level } = useParams()
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
 
     const flipTile = (id: number): void => {
         if (flipped.length < 2) {
