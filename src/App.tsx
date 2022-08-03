@@ -9,8 +9,8 @@ import Mode from './pages/Mode';
 
 function App() {
     return (
-        <Box sx={{ height: "100vh", width: "100vw", background: "#eff3f6"}}>
-            <Container sx={{display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
+        <Box sx={{minHeight: "100vh", width: "100vw", background: "#eff3f6"}}>
+            <Container sx={{display: "flex", justifyContent: "center", alignItems: "center", minHeight: "100vh" }}>
                 <BrowserRouter>
                     <Routes>
                         <Route path="/" element={<Home />} />
