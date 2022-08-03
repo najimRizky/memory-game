@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Game from './pages/Game';
 import Home from './pages/Home';
+import Mode from './pages/Mode';
 
 function App() {
     return (
@@ -13,7 +14,11 @@ function App() {
                 <BrowserRouter>
                     <Routes>
                         <Route path="/" element={<Home />} />
-                        <Route path="/play" element={<Game />} />
+                        <Route path="/play">
+                            <Route index element={<Mode />} />
+                            <Route path=":level/:type" element={<Game />} />
+                        </Route>
+                        <Route path='*' element={<Home/>} />
                     </Routes>
                 </BrowserRouter>
             </Container>

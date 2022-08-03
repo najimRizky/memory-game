@@ -92,3 +92,14 @@
         bottom: 0;
     }
 }
+
+
+
+
+
+
+.mode .MuiTabs-indicator{
+    height: 100%;
+    border-radius: 5px;
+    opacity: 0.2;
+}

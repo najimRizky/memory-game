@@ -1,0 +1,18 @@
+[
+    {
+        "level": "easy",
+        "size": "4"
+    },
+    {
+        "level": "normal",
+        "size": "6"
+    },
+    {
+        "level": "hard",
+        "size": "8"
+    },
+    {
+        "level": "very_hard",
+        "size": "10"
+    }
+]
