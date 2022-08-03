@@ -18,7 +18,7 @@ const Game = () => {
     const handleOpen = (): void => setOpenModalFinish(true);
     const handleClose = (): void => setOpenModalFinish(false);
 
-    const { level } = useParams()
+    const { level, type } = useParams()
     // const navigate = useNavigate()
 
     const flipTile = (id: number): void => {
@@ -64,7 +64,7 @@ const Game = () => {
             case "very_hard": setHeight("500px")
             break;
         }
-        setTilesData(generateTile(level!))
+        setTilesData(generateTile(level!, type!))
         // eslint-disable-next-line
     }, [])
 
@@ -76,7 +76,7 @@ const Game = () => {
     }, [flipped])
 
     const retryGame = (): void => {
-        generateTile(level!)
+        generateTile(level!, type!)
         setTotalFlip(0)
         setTrueFlipped([])
         setFlipped([])
@@ -92,7 +92,7 @@ const Game = () => {
                 <Box className="board" sx={{ width: "400px", height: height, background: "#eff3f6", padding: "10px", borderRadius: "5px" }}>
                     <Grid className="tiles" sx={{ height: "100%" }} container columns={{ xs: 4 }}>
                         {tilesData.map((tileData, id) => (
-                            <Tile key={id} flipTile={flipTile} tileData={tileData} id={id} trueFlipped={trueFlipped} flipped={flipped} />
+                            <Tile key={id} type={type!} flipTile={flipTile} tileData={tileData} id={id} trueFlipped={trueFlipped} flipped={flipped} />
                         ))}
                     </Grid>
                 </Box>

@@ -2,11 +2,13 @@ import { Box, Button, Tab, Tabs, Typography } from '@mui/material'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Level from "./../rules/Level.json"
+import {modeType} from "../rules/Type"
 
 // type Props = {}
 
 const Mode = () => {
     const [level, setLevel] = useState<number>(0);
+    const [type, setType] = useState<string>("color");
     const navigate = useNavigate()
 
     const handleChange = (event: React.SyntheticEvent, newValue: number): void => {
@@ -21,7 +23,7 @@ const Mode = () => {
     }
 
     const goToGame = (): void => {
-        navigate(`${Level[level].level}/color`)
+        navigate(`${Level[level].level}/${type}`)
     }
 
     return (
@@ -36,9 +38,21 @@ const Mode = () => {
                     ))}
                 </Tabs>
             </Box>
-            {/* <Typography variant="body1" component="p" sx={{ textAlign: "center", mb: "20px" }}>
+            <Typography variant="body1" component="p" sx={{ textAlign: "center", mb: "20px" }}>
                 Choose mode:
-            </Typography> */}
+            </Typography>
+            <Box sx={{display: "flex", mb: "20px"}} className="modeList">
+                {modeType.map((typ, id) => (
+                    <Box onClick={() => setType(typ.type)} className={`modeItem ${type === typ.type ? "selected" : ""}`} key={id}>
+                        <img height={"100%"} src={typ.image} alt={typ.type}></img>
+                        <Box className='modeName'>
+                            <Typography >
+                                {typ.type}
+                            </Typography>
+                        </Box>
+                    </Box>
+                ))}
+            </Box>
             <Box sx={{ textAlign: "center" }}>
                 {/* <Link to={"/play"} style={{ textDecoration: "none" }}> */}
                 <Button onClick={goToGame} sx={{ width: "100px" }} variant="contained" color="success">
