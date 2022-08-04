@@ -2,6 +2,7 @@ import { Grid, Typography } from "@mui/material"
 import { Box } from "@mui/system"
 import { motion } from "framer-motion"
 import { useEffect, useState } from "react"
+import { CountdownCircleTimer } from "react-countdown-circle-timer"
 import { useParams } from "react-router-dom"
 import FinishModal from "../components/FinishModal"
 import Tile from "../components/Tile"
@@ -84,9 +85,37 @@ const Game = () => {
         handleClose()
     }
 
+    const rememberTime: number = 5000
+
+    const renderTime = (remainingTime: number) => {
+        if (remainingTime === 0) {
+            return <div className="timer">Happy play!</div>;
+        }
+
+        return (
+            <div className="timer" style={{ textAlign: "center" }}>
+                <div className="text">Remembering time</div>
+                <h2 style={{margin: "0"}} className="value">{remainingTime}</h2>
+                <div className="text">seconds</div>
+            </div>
+        );
+    };
+
     return (
         <Box component={motion.div} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <Box>
+                <Box sx={{position: "absolute", left: "10vw", top: "50vh", transform: "translateY(-40%)"}}>
+                    <CountdownCircleTimer
+                        isPlaying
+                        duration={rememberTime / 1000}
+                        colors={"#1e90ff"}
+                        onComplete={() => {
+                            setFinishLoadTiles(true)
+                        }}
+                    >
+                        {({ remainingTime }) => renderTime(remainingTime)}
+                    </CountdownCircleTimer>
+                </Box>
                 <Typography component={"h2"} variant={"h5"} sx={{ color: "black", textAlign: "center", mb: "10px" }}>
                     Mistakes: {mistakes}
                 </Typography>
@@ -96,7 +125,7 @@ const Game = () => {
                         className="tiles" sx={{ height: "100%" }} container columns={{ xs: 4 }}>
                         {tilesData.map((tileData, id) => (
                             // <motion.p variants={tileVariant} key={id}>{id}</motion.p>
-                            <Tile finishLoadTiles={finishLoadTiles} setFinishLoadTiles={setFinishLoadTiles} isLast={id+1 === tilesData.length} key={id} type={type!} flipTile={flipTile} tileData={tileData} id={id} trueFlipped={trueFlipped} flipped={flipped} />
+                            <Tile finishLoadTiles={finishLoadTiles} isLast={id + 1 === tilesData.length} key={id} type={type!} flipTile={flipTile} tileData={tileData} id={id} trueFlipped={trueFlipped} flipped={flipped} />
                         ))}
                     </Grid>
                 </Box>
