@@ -1,5 +1,6 @@
 import { Grid, Typography } from "@mui/material"
 import { Box } from "@mui/system"
+import { motion } from "framer-motion"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import FinishModal from "../components/FinishModal"
@@ -84,7 +85,7 @@ const Game = () => {
     }
 
     return (
-        <>
+        <Box component={motion.div} initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>
             <Box>
                 <Typography component={"h2"} variant={"h5"} sx={{ color: "black", textAlign: "center", mb: "10px" }}>
                     Total flip: {totalFlip}
@@ -98,7 +99,7 @@ const Game = () => {
                 </Box>
             </Box>
             <FinishModal totalFlip={totalFlip} retryGame={retryGame} handleOpen={handleOpen} handleClose={handleClose} openModalFinish={openModalFinish} />
-        </>
+        </Box>
     )
 }
 

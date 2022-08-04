@@ -2,12 +2,13 @@ import { Button, Container, Typography } from "@mui/material"
 import { Box } from "@mui/system"
 import { Link } from "react-router-dom"
 import LinkM from '@mui/material/Link';
+import { motion } from "framer-motion";
 
 // type Props = {tes: string}
 
 const Home = () => {
     return (
-        <Box>
+        <Box component={motion.div} initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>
             <Container>
                 <Box>
                     <Typography variant="h2" component="h1" sx={{ textAlign: "center", mb: "0" }}>
