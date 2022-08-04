@@ -14,6 +14,8 @@ const Game = () => {
     const [mistakes, setMistakes] = useState<number>(0)
     const [height, setHeight] = useState<string>("")
 
+    const [finishLoadTiles, setFinishLoadTiles] = useState<boolean>(false)
+
 
     const [openModalFinish, setOpenModalFinish] = useState<boolean>(false);
     const handleOpen = (): void => setOpenModalFinish(true);
@@ -89,9 +91,12 @@ const Game = () => {
                     Mistakes: {mistakes}
                 </Typography>
                 <Box className="board" sx={{ width: "400px", height: height, background: "#eff3f6", padding: "10px", borderRadius: "5px" }}>
-                    <Grid className="tiles" sx={{ height: "100%" }} container columns={{ xs: 4 }}>
+                    <Grid
+                        // component={motion.div} variants={tilesVariant} initial="hidden" animate="visible"
+                        className="tiles" sx={{ height: "100%" }} container columns={{ xs: 4 }}>
                         {tilesData.map((tileData, id) => (
-                            <Tile key={id} type={type!} flipTile={flipTile} tileData={tileData} id={id} trueFlipped={trueFlipped} flipped={flipped} />
+                            // <motion.p variants={tileVariant} key={id}>{id}</motion.p>
+                            <Tile finishLoadTiles={finishLoadTiles} setFinishLoadTiles={setFinishLoadTiles} isLast={id+1 === tilesData.length} key={id} type={type!} flipTile={flipTile} tileData={tileData} id={id} trueFlipped={trueFlipped} flipped={flipped} />
                         ))}
                     </Grid>
                 </Box>

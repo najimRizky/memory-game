@@ -26,7 +26,7 @@
 }
 
 .tile.flip .tile-inner {
-    transform: rotateY(180deg);
+    transform: rotateY(180deg) !important;
 }
 
 /* Position the front and back side */
