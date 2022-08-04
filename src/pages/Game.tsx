@@ -26,11 +26,13 @@ const Game = () => {
     // const navigate = useNavigate()
 
     const flipTile = (id: number): void => {
-        if (flipped.length < 2) {
-            if (flipped.includes(id)) {
-                setFlipped(flipped.filter(flipId => flipId !== id))
-            } else if (!trueFlipped.includes(id)) {
-                setFlipped([...flipped, id])
+        if(finishLoadTiles){
+            if (flipped.length < 2) {
+                if (flipped.includes(id)) {
+                    setFlipped(flipped.filter(flipId => flipId !== id))
+                } else if (!trueFlipped.includes(id)) {
+                    setFlipped([...flipped, id])
+                }
             }
         }
     }
@@ -137,9 +139,11 @@ const Game = () => {
                 <Box className="board" sx={{ width: "400px", height: height, background: "#eff3f6", padding: "10px", borderRadius: "5px" }}>
                     <Grid
                         className="tiles" sx={{ height: "100%" }} container columns={{ xs: 4 }}>
-                        {tilesData.map((tileData, id) => (
-                            <Tile finishLoadTiles={finishLoadTiles} isLast={id + 1 === tilesData.length} key={id} type={type!} flipTile={flipTile} tileData={tileData} id={id} trueFlipped={trueFlipped} flipped={flipped} />
-                        ))}
+                            <AnimatePresence>
+                                {tilesData.map((tileData, id) => (
+                                    <Tile finishLoadTiles={finishLoadTiles} isLast={id + 1 === tilesData.length} key={id} type={type!} flipTile={flipTile} tileData={tileData} id={id} trueFlipped={trueFlipped} flipped={flipped} />
+                                ))}
+                            </AnimatePresence>
                     </Grid>
                 </Box>
             </Box>
