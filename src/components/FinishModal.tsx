@@ -3,7 +3,7 @@ import { Backdrop, Box, Button, Fade, Modal, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
 type Props = {
-    totalFlip: number,
+    mistakes: number,
     retryGame: any,
     handleOpen: any,
     handleClose: any,
@@ -17,7 +17,7 @@ const style: object = {
     transform: 'translate(-50%, -50%)',
     width: 400,
     bgcolor: 'background.paper',
-    border: '1px solid rgba(0,0,0,0.5)',
+    outline: "none",
     boxShadow: 24,
     p: 4,
     borderRadius: "5px"
@@ -41,7 +41,7 @@ const FinishModal = (props: Props) => {
                 <Fade in={props.openModalFinish}>
                     <Box sx={style}>
                         <Typography id="transition-modal-title" sx={{textAlign: "center", fontWeight: "normal"}} variant="h6" component="h3">
-                            Congratulations! You finish this game with <b>{props.totalFlip}</b> total flip
+                            Congratulations! You finish this game with <b>{props.mistakes}</b> mistakes
                         </Typography>
                         <Box sx={{textAlign: "center", mt: "20px"}}>
                             <Button onClick={props.retryGame} variant="contained" sx={{mr: "10px"}} color="success" >Retry</Button>

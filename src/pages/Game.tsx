@@ -11,7 +11,7 @@ const Game = () => {
     const [flipped, setFlipped] = useState<number[]>([])
     const [tilesData, setTilesData] = useState<string[]>([])
     const [trueFlipped, setTrueFlipped] = useState<number[]>([])
-    const [totalFlip, setTotalFlip] = useState<number>(0)
+    const [mistakes, setMistakes] = useState<number>(0)
     const [height, setHeight] = useState<string>("")
 
 
@@ -28,7 +28,6 @@ const Game = () => {
                 setFlipped(flipped.filter(flipId => flipId !== id))
             } else if (!trueFlipped.includes(id)) {
                 setFlipped([...flipped, id])
-                setTotalFlip(totalFlip + 1)
             }
         }
     }
@@ -45,25 +44,24 @@ const Game = () => {
                 }, 700)
             }
         } else {
-            setTimeout(() => {
-                setFlipped([])
-            }, 900)
+            setTimeout(() => { setMistakes(mistakes + 1) }, 400)
+            setTimeout(() => { setFlipped([]) }, 900)
         }
     }
 
     useEffect(() => {
-        switch(level){
+        switch (level) {
             case "easy": setHeight("200px")
-            break;
+                break;
 
             case "normal": setHeight("300px")
-            break;
+                break;
 
             case "hard": setHeight("400px")
-            break;
+                break;
 
             case "very_hard": setHeight("500px")
-            break;
+                break;
         }
         setTilesData(generateTile(level!, type!))
         // eslint-disable-next-line
@@ -78,17 +76,17 @@ const Game = () => {
 
     const retryGame = (): void => {
         generateTile(level!, type!)
-        setTotalFlip(0)
+        setMistakes(0)
         setTrueFlipped([])
         setFlipped([])
         handleClose()
     }
 
     return (
-        <Box component={motion.div} initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>
+        <Box component={motion.div} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <Box>
                 <Typography component={"h2"} variant={"h5"} sx={{ color: "black", textAlign: "center", mb: "10px" }}>
-                    Total flip: {totalFlip}
+                    Mistakes: {mistakes}
                 </Typography>
                 <Box className="board" sx={{ width: "400px", height: height, background: "#eff3f6", padding: "10px", borderRadius: "5px" }}>
                     <Grid className="tiles" sx={{ height: "100%" }} container columns={{ xs: 4 }}>
@@ -98,7 +96,7 @@ const Game = () => {
                     </Grid>
                 </Box>
             </Box>
-            <FinishModal totalFlip={totalFlip} retryGame={retryGame} handleOpen={handleOpen} handleClose={handleClose} openModalFinish={openModalFinish} />
+            <FinishModal mistakes={mistakes} retryGame={retryGame} handleOpen={handleOpen} handleClose={handleClose} openModalFinish={openModalFinish} />
         </Box>
     )
 }
