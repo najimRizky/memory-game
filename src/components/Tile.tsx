@@ -10,21 +10,13 @@ type Props = {
     type: string,
     isLast: boolean,
     finishLoadTiles: boolean,
-    // setFinishLoadTiles: any,
-    // rememberTime: number
 }
 
 
 const Tile = (props: Props) => {
-    // const closeTiles = (): void => {
-    //     setTimeout(() => {
-    //         props.setFinishLoadTiles(true)
-    //     }, rememberTime)
-    // }
     return (
         <Grid 
         component={motion.div} initial={{scale: 0}} animate={{scale: 1, transition: {type: "spring", delay: 0.05 * props.id, duration: 0.5, damping: 10}}} 
-        // onAnimationComplete={() => {if(props.isLast) closeTiles() }}
         item xs={1} sx={{ padding: "10px" }} key={props.id} >
             <Box onClick={() => props.flipTile(props.id)} className={`${props.flipped.includes(props.id) || props.trueFlipped.includes(props.id) ? "tile flip" : "tile"} ${props.trueFlipped.includes(props.id) ? "true" : ""}`} sx={{ cursor: "pointer", height: "100%"}}>
                 <Box 
