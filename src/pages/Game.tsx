@@ -1,6 +1,6 @@
 import { Grid, Typography } from "@mui/material"
 import { Box } from "@mui/system"
-import { motion } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 import { useEffect, useState } from "react"
 import { CountdownCircleTimer } from "react-countdown-circle-timer"
 import { useParams } from "react-router-dom"
@@ -69,7 +69,6 @@ const Game = () => {
         setTilesData(generateTile(level!, type!))
         // eslint-disable-next-line
     }, [])
-
     useEffect(() => {
         if (flipped.length === 2) {
             checkFlipped()
@@ -78,53 +77,67 @@ const Game = () => {
     }, [flipped])
 
     const retryGame = (): void => {
-        generateTile(level!, type!)
+        setTilesData(generateTile(level!, type!))
         setMistakes(0)
         setTrueFlipped([])
         setFlipped([])
         handleClose()
+        setFinishLoadTiles(false)
     }
 
     const rememberTime: number = 5000
 
     const renderTime = (remainingTime: number) => {
         if (remainingTime === 0) {
-            return <div className="timer">Happy play!</div>;
+            return <h3 className="timer">Happy play!</h3>;
         }
 
         return (
             <div className="timer" style={{ textAlign: "center" }}>
                 <div className="text">Remembering time</div>
-                <h2 style={{margin: "0"}} className="value">{remainingTime}</h2>
+                <h2 style={{ margin: "0" }} className="value">{remainingTime}</h2>
                 <div className="text">seconds</div>
             </div>
         );
     };
 
+    const CountdownTimer = () => {
+        return(
+            <Box component={motion.div} sx={{ position: "absolute", left: "10vw", top: "50vh", transform: "translateY(-40%)"}} 
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            exit={{opacity: 0, transition: {delay: 0.5}}}
+            >
+                <CountdownCircleTimer
+                    size={180}
+                    isPlaying
+                    duration={rememberTime / 1000}
+                    colors={"#1e90ff"}
+                    onComplete={() => {
+                        setFinishLoadTiles(true)
+                    }}
+                >
+                    {({ remainingTime }) => renderTime(remainingTime)}
+                </CountdownCircleTimer>
+            </Box>
+        )
+    }
+
     return (
         <Box component={motion.div} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <Box>
-                <Box sx={{position: "absolute", left: "10vw", top: "50vh", transform: "translateY(-40%)"}}>
-                    <CountdownCircleTimer
-                        isPlaying
-                        duration={rememberTime / 1000}
-                        colors={"#1e90ff"}
-                        onComplete={() => {
-                            setFinishLoadTiles(true)
-                        }}
-                    >
-                        {({ remainingTime }) => renderTime(remainingTime)}
-                    </CountdownCircleTimer>
-                </Box>
+                <AnimatePresence exitBeforeEnter>
+                    {!finishLoadTiles &&
+                        <CountdownTimer/>
+                    }
+                    </AnimatePresence>
                 <Typography component={"h2"} variant={"h5"} sx={{ color: "black", textAlign: "center", mb: "10px" }}>
                     Mistakes: {mistakes}
                 </Typography>
                 <Box className="board" sx={{ width: "400px", height: height, background: "#eff3f6", padding: "10px", borderRadius: "5px" }}>
                     <Grid
-                        // component={motion.div} variants={tilesVariant} initial="hidden" animate="visible"
                         className="tiles" sx={{ height: "100%" }} container columns={{ xs: 4 }}>
                         {tilesData.map((tileData, id) => (
-                            // <motion.p variants={tileVariant} key={id}>{id}</motion.p>
                             <Tile finishLoadTiles={finishLoadTiles} isLast={id + 1 === tilesData.length} key={id} type={type!} flipTile={flipTile} tileData={tileData} id={id} trueFlipped={trueFlipped} flipped={flipped} />
                         ))}
                     </Grid>
