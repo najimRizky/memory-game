@@ -2,7 +2,7 @@
 import { Container } from '@mui/material';
 import { Box } from '@mui/system';
 import { BrowserRouter} from 'react-router-dom';
-import './App.css';
+import './styles/App.scss';
 import AllRoutes from './components/AllRoutes';
 
 

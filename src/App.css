@@ -50,7 +50,6 @@
 
 /* Style the back side */
 .tile-back {
-    background-color: dodgerblue;
     color: white;
     transform: rotateY(180deg);
 }

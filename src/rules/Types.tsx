@@ -23,5 +23,5 @@ import animal22 from "./../assets/animals/animal (22).jpg"
 import animal23 from "./../assets/animals/animal (23).jpg"
 import animal24 from "./../assets/animals/animal (24).jpg"
 
-export const allColor = ["tomato", "aguamarine", "cyan", "orchid", "black", "yellowgreen", "lightsteelblue", "crimson", "lightpink", "seagreen"]
+export const allColor = ["tomato", "aquamarine", "cyan", "orchid", "black", "yellowgreen", "lightsteelblue", "crimson", "lightpink", "seagreen"]
 export const allAnimals = [animal1, animal2, animal3, animal4, animal5, animal6, animal7, animal8, animal9, animal10, animal11, animal12, animal13, animal14, animal15, animal16, animal17, animal18, animal19, animal20, animal21, animal22, animal23, animal24]
