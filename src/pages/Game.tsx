@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion"
 import { useEffect, useState } from "react"
 import { CountdownCircleTimer } from "react-countdown-circle-timer"
 import { useParams } from "react-router-dom"
-import { pagesTransition } from "../animation/pagesTransition"
+import { fadeTransition } from "../animation/pagesTransition"
 import FinishModal from "../components/FinishModal"
 import Tile from "../components/Tile"
 import { generateTile } from "../utils/GameLogic"
@@ -107,7 +107,9 @@ const Game = () => {
     const CountdownTimer = () => {
         return(
             <Box component={motion.div} sx={{ position: "absolute", left: "10vw", top: "50vh", transform: "translateY(-40%)"}} 
-            {...pagesTransition}
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            exit={{opacity: 0, transition: {delay: 0.5}}}
             >
                 <CountdownCircleTimer
                     size={180}
@@ -125,7 +127,7 @@ const Game = () => {
     }
 
     return (
-        <Box component={motion.div} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+        <Box component={motion.div} {...fadeTransition}>
             <Box>
                 <AnimatePresence exitBeforeEnter>
                     {!finishLoadTiles &&
