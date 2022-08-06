@@ -1,19 +1,34 @@
 import Level from "./../rules/Level.json"
-import { allColor, allAnimals } from "../rules/Types"
+import {modeType} from "./../rules/Type"
+import { allColor, allAnimals, allFruits } from "../rules/Types"
 
-const generateTile = (level: string, type: string): string[] => {
+const generateTile = (level: string, type: string): string[] | null => {
+    if(Level.findIndex((lvl) => lvl.level === level) === -1 || modeType.findIndex(typ => typ.type === type) === -1)
+        return null
+
     const tilesSize = Number(Level[Level.findIndex((lvl) => lvl.level === level)].size) * 2
-    const tmp = type === "color" ? [...allColor] : [...allAnimals]
+    let tmp: any = []
 
+    switch (type) {
+        case "color": tmp = [...allColor]
+            break
+        case "animal": tmp = [...allAnimals]
+            break
+        case "fruit": tmp = [...allFruits]
+            break
+        default: 
+    }
+
+    // Choose dataType as source for randomize before generate
     const dataType = []
 
-    while(dataType.length < tilesSize / 2){
+    while (dataType.length < tilesSize / 2) {
         const tmpRandom: number = Math.floor(Math.random() * (tmp.length))
         dataType.push(tmp[tmpRandom])
         tmp.splice(tmpRandom, 1)
     }
-    
-    // let dataType = type === "color" ?  allColor.slice(0, tilesSize / 2) :  allAnimals.slice(0, tilesSize / 2)
+
+    // Generate tile (randomize)
     const finalColor: string[] = []
 
     for (let i = 0; i < tilesSize; i++) {

@@ -3,7 +3,7 @@ import { Box } from "@mui/system"
 import { AnimatePresence, motion } from "framer-motion"
 import { useEffect, useState } from "react"
 import { CountdownCircleTimer } from "react-countdown-circle-timer"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { fadeTransition } from "../animation/pagesTransition"
 import FinishModal from "../components/FinishModal"
 import Tile from "../components/Tile"
@@ -24,7 +24,7 @@ const Game = () => {
     const handleClose = (): void => setOpenModalFinish(false);
 
     const { level, type } = useParams()
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
 
     const flipTile = (id: number): void => {
         if(finishLoadTiles){
@@ -69,7 +69,13 @@ const Game = () => {
             case "very_hard": setHeight("500px")
                 break;
         }
-        setTilesData(generateTile(level!, type!))
+
+        const tmp = generateTile(level!, type!)
+        if(tmp === null){
+            navigate("/play")
+        }else{
+            setTilesData(tmp)
+        }
         // eslint-disable-next-line
     }, [])
     useEffect(() => {
@@ -80,7 +86,7 @@ const Game = () => {
     }, [flipped])
 
     const retryGame = (): void => {
-        setTilesData(generateTile(level!, type!))
+        setTilesData(generateTile(level!, type!)!)
         setMistakes(0)
         setTrueFlipped([])
         setFlipped([])
