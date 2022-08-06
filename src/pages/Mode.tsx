@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Level from "./../rules/Level.json"
 import {modeType} from "../rules/Type"
 import { motion } from 'framer-motion';
+import { pagesTransition } from '../animation/pagesTransition';
 
 // type Props = {}
 
@@ -28,7 +29,7 @@ const Mode = () => {
     }
 
     return (
-        <Box component={motion.div} className="mode" initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>
+        <Box component={motion.div} className="mode" {...pagesTransition}>
             <Typography variant="body1" component="p" sx={{ textAlign: "center", mb: "0" }}>
                 Chose level:
             </Typography>

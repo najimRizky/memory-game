@@ -3,12 +3,11 @@ import { Box } from "@mui/system"
 import { Link } from "react-router-dom"
 import LinkM from '@mui/material/Link';
 import { motion } from "framer-motion";
-
-// type Props = {tes: string}
+import { pagesTransition } from "../animation/pagesTransition";
 
 const Home = () => {
     return (
-        <Box component={motion.div} initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>
+        <Box component={motion.div} {...pagesTransition}>
             <Container>
                 <Box>
                     <Typography variant="h2" component="h1" sx={{ textAlign: "center", mb: "0" }}>
