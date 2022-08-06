@@ -1,4 +1,4 @@
-import { Box, Button, Tab, Tabs, Typography } from '@mui/material'
+import { Box, Button, Divider, Tab, Tabs, Typography } from '@mui/material'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Level from "./../rules/Level.json"
@@ -30,16 +30,17 @@ const Mode = () => {
 
     return (
         <Box component={motion.div} className="mode" {...slideTransition}>
-            <Typography variant="body1" component="p" sx={{ textAlign: "center", mb: "0" }}>
+            <Typography variant="body1" component="p" sx={{ textAlign: "center", mb: "20px" }}>
                 Chose level:
             </Typography>
             <Box sx={{mb: "20px"}}>
                 <Tabs value={level} onChange={handleChange} aria-label="basic tabs example">
                     {Level.map((lvl, id) => (
-                        <Tab label={lvl.level.replaceAll("_", " ")} {...a11yProps(id)} key={id} />
+                        <Tab sx={{textTransform: "capitalize"}} label={lvl.level.replaceAll("_", " ")} {...a11yProps(id)} key={id} />
                     ))}
                 </Tabs>
             </Box>
+            <Divider sx={{mb: "20px"}} />
             <Typography variant="body1" component="p" sx={{ textAlign: "center", mb: "20px" }}>
                 Choose mode:
             </Typography>
@@ -48,7 +49,7 @@ const Mode = () => {
                     <Box onClick={() => setType(typ.type)} className={`modeItem ${type === typ.type ? "selected" : ""}`} key={id}>
                         <img height={"100%"} src={typ.image} alt={typ.type}></img>
                         <Box className='modeName'>
-                            <Typography >
+                            <Typography sx={{textTransform: "capitalize"}}>
                                 {typ.type}
                             </Typography>
                         </Box>
