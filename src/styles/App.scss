@@ -40,8 +40,13 @@
     }
     
     .tile-front {
-        background-color: #bbb;
+        // background-color: #bbb;
+        background: url("./../assets/unknown.png");
+        background-size: 115% auto;
+        // background-size: 100% auto;
+        background-position: center;
         color: black;
+        // border: 1px solid black;
     }
     
     .tile-back {
