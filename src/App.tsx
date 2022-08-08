@@ -9,7 +9,7 @@ import AllRoutes from './components/AllRoutes';
 function App() {
     return (
         <Box sx={{ minHeight: "100vh", width: "100vw", background: "#eff3f6" }}>
-            <Container sx={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "100vh" }}>
+            <Container sx={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "100vh"}}>
                 <BrowserRouter>
                     <AllRoutes/>
                 </BrowserRouter>

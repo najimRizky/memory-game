@@ -44,17 +44,19 @@ const Mode = () => {
             <Typography variant="body1" component="p" sx={{ textAlign: "center", mb: "20px" }}>
                 Choose mode:
             </Typography>
-            <Box sx={{display: "flex", mb: "20px"}} className="modeList">
-                {modeType.map((typ, id) => (
-                    <Box onClick={() => setType(typ.type)} className={`modeItem ${type === typ.type ? "selected" : ""}`} key={id}>
-                        <img height={"100%"} src={typ.image} alt={typ.type}></img>
-                        <Box className='modeName'>
-                            <Typography sx={{textTransform: "capitalize"}}>
-                                {typ.type}
-                            </Typography>
+            <Box className="modeListContainer">
+                <Box sx={{display: "flex", mb: "20px"}} className="modeList">
+                    {modeType.map((typ, id) => (
+                        <Box onClick={() => setType(typ.type)} className={`modeItem ${type === typ.type ? "selected" : ""}`} key={id}>
+                            <img height={"100%"} src={typ.image} alt={typ.type}></img>
+                            <Box className='modeName'>
+                                <Typography sx={{textTransform: "capitalize"}}>
+                                    {typ.type}
+                                </Typography>
+                            </Box>
                         </Box>
-                    </Box>
-                ))}
+                    ))}
+                </Box>
             </Box>
             <Box sx={{ textAlign: "center" }}>
                 {/* <Link to={"/play"} style={{ textDecoration: "none" }}> */}
