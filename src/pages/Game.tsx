@@ -84,7 +84,7 @@ const Game = () => {
 
     const renderTime = (remainingTime: number) => {
         if (remainingTime === 0) {
-            return <Typography variant="h5" className="timer">Start!</Typography>
+            return <Typography variant="h6" className="timer">Start!</Typography>
         }
 
         return (
