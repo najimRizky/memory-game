@@ -14,7 +14,6 @@ const Game = () => {
     const [tilesData, setTilesData] = useState<string[]>([])
     const [trueFlipped, setTrueFlipped] = useState<number[]>([])
     const [mistakes, setMistakes] = useState<number>(0)
-    const [height, setHeight] = useState<string>("")
 
     const [finishLoadTiles, setFinishLoadTiles] = useState<boolean>(false)
 
@@ -56,20 +55,6 @@ const Game = () => {
     }
 
     useEffect(() => {
-        switch (level) {
-            case "easy": setHeight("200px")
-                break;
-
-            case "normal": setHeight("300px")
-                break;
-
-            case "hard": setHeight("400px")
-                break;
-
-            case "very_hard": setHeight("500px")
-                break;
-        }
-
         const tmp = generateTile(level!, type!)
         if(tmp === null){
             navigate("/play")
@@ -143,9 +128,9 @@ const Game = () => {
                 <Typography component={"h2"} variant={"h5"} sx={{ color: "black", textAlign: "center", mb: "10px" }}>
                     Mistakes: {mistakes}
                 </Typography>
-                <Box className="board" sx={{ width: "400px", height: height, background: "#eff3f6", padding: "10px", borderRadius: "5px" }}>
-                    <Grid
-                        className="tiles" sx={{ height: "100%" }} container columns={{ xs: 4 }}>
+                <Box className="board" 
+                    sx={{ width: {xs: "300px" ,sm: "400px", md: "500px"}, height: "fit-content", background: "#eff3f6", padding: "10px", borderRadius: "5px" }}>
+                    <Grid className="tiles" sx={{ height: "100%", justifyContent: "center" }} columns={{ xs: 4 }} container >
                             <AnimatePresence>
                                 {tilesData.map((tileData, id) => (
                                     <Tile finishLoadTiles={finishLoadTiles} isLast={id + 1 === tilesData.length} key={id} type={type!} flipTile={flipTile} tileData={tileData} id={id} trueFlipped={trueFlipped} flipped={flipped} />
