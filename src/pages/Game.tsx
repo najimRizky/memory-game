@@ -26,7 +26,7 @@ const Game = () => {
     const navigate = useNavigate()
 
     const flipTile = (id: number): void => {
-        if(finishLoadTiles){
+        if (finishLoadTiles) {
             if (flipped.length < 2) {
                 if (flipped.includes(id)) {
                     setFlipped(flipped.filter(flipId => flipId !== id))
@@ -56,9 +56,9 @@ const Game = () => {
 
     useEffect(() => {
         const tmp = generateTile(level!, type!)
-        if(tmp === null){
+        if (tmp === null) {
             navigate("/play")
-        }else{
+        } else {
             setTilesData(tmp)
         }
         // eslint-disable-next-line
@@ -79,33 +79,35 @@ const Game = () => {
         setFinishLoadTiles(false)
     }
 
+
     const rememberTime: number = 5000
 
     const renderTime = (remainingTime: number) => {
         if (remainingTime === 0) {
-            return <h3 className="timer">Happy play!</h3>;
+            return <Typography variant="h5" className="timer">Start!</Typography>
         }
 
         return (
             <div className="timer" style={{ textAlign: "center" }}>
-                <div className="text">Remembering time</div>
-                <h2 style={{ margin: "0" }} className="value">{remainingTime}</h2>
-                <div className="text">seconds</div>
+                {/* <div className="text">Remembering time</div> */}
+                <Typography variant="h4" style={{ margin: "0" }} className="value">{remainingTime}</Typography>
+                {/* <div className="text">seconds</div> */}
             </div>
         );
     };
 
     const CountdownTimer = () => {
-        return(
-            <Box component={motion.div} sx={{ position: "absolute", left: "10vw", top: "50vh", transform: "translateY(-40%)"}} 
-            initial={{opacity: 0}}
-            animate={{opacity: 1}}
-            exit={{opacity: 0, transition: {delay: 0.5}}}
+        return (
+            <Box component={motion.div} sx={{ position: "absolute", left: "50%", top: "0", transform: "translateX(-50%)" }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0, transition: { delay: 0.5 } }}
             >
                 <CountdownCircleTimer
-                    size={180}
+                    size={80}
                     isPlaying
                     duration={rememberTime / 1000}
+                    // duration={rememberTime}
                     colors={"#1e90ff"}
                     onComplete={() => {
                         setFinishLoadTiles(true)
@@ -113,6 +115,7 @@ const Game = () => {
                 >
                     {({ remainingTime }) => renderTime(remainingTime)}
                 </CountdownCircleTimer>
+                <Typography className="text">Get ready...</Typography>
             </Box>
         )
     }
@@ -120,22 +123,33 @@ const Game = () => {
     return (
         <Box component={motion.div} {...fadeTransition}>
             <Box>
-                <AnimatePresence exitBeforeEnter>
-                    {!finishLoadTiles &&
-                        <CountdownTimer/>
-                    }
+                <Box sx={{ position: "relative", height: "100px", mb: "20px" }}>
+                    <AnimatePresence>
+                        {!finishLoadTiles &&
+                            <CountdownTimer />
+                        }
                     </AnimatePresence>
-                <Typography component={"h2"} variant={"h5"} sx={{ color: "black", textAlign: "center", mb: "10px" }}>
-                    Mistakes: {mistakes}
-                </Typography>
-                <Box className="board" 
-                    sx={{ width: {xs: "300px" ,sm: "400px", md: "500px"}, height: "fit-content", background: "#eff3f6", padding: "10px", borderRadius: "5px" }}>
+                    <AnimatePresence>
+                        {finishLoadTiles &&
+                            <Typography
+                                component={motion.h2}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1, transition: { delay: 0.8 } }}
+                                exit={{ opacity: 0 }}
+                                variant={"h5"} sx={{ position: "absolute", color: "black", top: "55%", width: "100%", textAlign: "center", mb: "10px" }}>
+                                Mistakes: {mistakes}
+                            </Typography>
+                        }
+                    </AnimatePresence>
+                </Box>
+                <Box className="board"
+                    sx={{ width: { xs: "300px", sm: "400px", md: "500px" }, height: "fit-content", background: "#eff3f6", padding: "10px", borderRadius: "5px" }}>
                     <Grid className="tiles" sx={{ height: "100%", justifyContent: "center" }} columns={{ xs: 4 }} container >
-                            <AnimatePresence>
-                                {tilesData.map((tileData, id) => (
-                                    <Tile finishLoadTiles={finishLoadTiles} isLast={id + 1 === tilesData.length} key={id} type={type!} flipTile={flipTile} tileData={tileData} id={id} trueFlipped={trueFlipped} flipped={flipped} />
-                                ))}
-                            </AnimatePresence>
+                        <AnimatePresence>
+                            {tilesData.map((tileData, id) => (
+                                <Tile finishLoadTiles={finishLoadTiles} isLast={id + 1 === tilesData.length} key={id} type={type!} flipTile={flipTile} tileData={tileData} id={id} trueFlipped={trueFlipped} flipped={flipped} />
+                            ))}
+                        </AnimatePresence>
                     </Grid>
                 </Box>
             </Box>
