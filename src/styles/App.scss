@@ -4,6 +4,10 @@
     -moz-box-shadow: 3px 3px 4px 2px rgb(0, 0, 0, 22%);
 }
 
+body{
+    overflow-x: hidden;
+}
+
 .tile {
     background-color: transparent;
     height: 80px;
