@@ -9,6 +9,14 @@ import FinishModal from "../components/FinishModal"
 import Tile from "../components/Tile"
 import { generateTile } from "../utils/GameLogic"
 
+import tileFlip from "./../assets/sound/tileFlip.mp3"
+import correct from "./../assets/sound/correct.mp3"
+
+const tileFlipSound = new Audio(tileFlip)
+const correctSound = new Audio(correct)
+tileFlipSound.volume = 0.5
+correctSound.volume = 0.4
+
 const Game = () => {
     const [flipped, setFlipped] = useState<number[]>([])
     const [tilesData, setTilesData] = useState<string[]>([])
@@ -30,6 +38,8 @@ const Game = () => {
             if (flipped.length < 2) {
                 if (!trueFlipped.includes(id) && !e.target.closest(".flip")) {
                     setFlipped([...flipped, id])
+                    tileFlipSound.currentTime = 0
+                    tileFlipSound.play()
                 }
             }
         }
@@ -38,6 +48,8 @@ const Game = () => {
     const checkFlipped = (): void => {
         if (tilesData[flipped[0]] === tilesData[flipped[1]]) {
             setTrueFlipped([...trueFlipped, ...flipped])
+            correctSound.currentTime = 0
+            correctSound.play()
             // setTimeout(() => {
             setFlipped([])
             // },)

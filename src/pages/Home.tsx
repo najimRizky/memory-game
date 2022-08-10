@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import LinkM from '@mui/material/Link';
 import { motion } from "framer-motion";
 import { slideTransition } from "../animation/pagesTransition";
+import { ClickSound } from "../utils/Click";
 
 const Home = () => {
     return (
@@ -19,7 +20,7 @@ const Home = () => {
                 </Box>
                 <Box sx={{textAlign: "center"}}>
                     <Link to={"/play"} style={{textDecoration: "none"}}>
-                        <Button sx={{width: "100px"}} variant="contained" color="success">
+                        <Button onClick={ClickSound} sx={{width: "100px"}} variant="contained" color="success">
                             Play
                         </Button>
                     </Link>

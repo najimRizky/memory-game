@@ -5,6 +5,7 @@ import Level from "./../rules/Level.json"
 import {modeType} from "../rules/Type"
 import { motion } from 'framer-motion';
 import { slideTransition } from '../animation/pagesTransition';
+import { ClickSound } from '../utils/Click';
 
 // type Props = {}
 
@@ -60,7 +61,7 @@ const Mode = () => {
             </Box>
             <Box sx={{ textAlign: "center" }}>
                 {/* <Link to={"/play"} style={{ textDecoration: "none" }}> */}
-                <Button onClick={goToGame} sx={{ width: "100px" }} variant="contained" color="success">
+                <Button onClick={() => {goToGame(); ClickSound();}} sx={{ width: "100px" }} variant="contained" color="success">
                     Play
                 </Button>
                 {/* </Link> */}
