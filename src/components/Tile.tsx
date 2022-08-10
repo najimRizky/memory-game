@@ -6,7 +6,7 @@ type Props = {
     tileData: string,
     trueFlipped: number[],
     flipped: number[],
-    flipTile: (id: number) => void,
+    flipTile: (id: number, e: any) => void,
     type: string,
     isLast: boolean,
     finishLoadTiles: boolean,
@@ -18,7 +18,7 @@ const Tile = (props: Props) => {
         <Grid
             component={motion.div} initial={{ scale: 0 }} animate={{ scale: 1, transition: { type: "spring", delay: 0.05 * props.id, duration: 0.5, damping: 10 } }}
             item xs={1} sx={{ padding: "10px", maxWidth: "fit-content" }} key={props.id} >
-            <Box onClick={() => props.flipTile(props.id)} className={`${props.flipped.includes(props.id) || props.trueFlipped.includes(props.id) ? "tile flip" : "tile"} ${props.trueFlipped.includes(props.id) ? "true" : ""}`} sx={{ cursor: "pointer" }}>
+            <Box onClick={(e) => props.flipTile(props.id, e)} className={`${props.flipped.includes(props.id) || props.trueFlipped.includes(props.id) ? "tile flip" : "tile"} ${props.trueFlipped.includes(props.id) ? "true" : ""}`} sx={{ cursor: "pointer" }}>
                 <Box
                     component={motion.div}
                     initial={{ rotateY: "180deg" }}

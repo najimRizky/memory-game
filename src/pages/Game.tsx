@@ -25,12 +25,10 @@ const Game = () => {
     const { level, type } = useParams()
     const navigate = useNavigate()
 
-    const flipTile = (id: number): void => {
+    const flipTile = (id: number, e: any): void => {
         if (finishLoadTiles) {
             if (flipped.length < 2) {
-                if (flipped.includes(id)) {
-                    setFlipped(flipped.filter(flipId => flipId !== id))
-                } else if (!trueFlipped.includes(id)) {
+                if (!trueFlipped.includes(id) && !e.target.closest(".flip")) {
                     setFlipped([...flipped, id])
                 }
             }
