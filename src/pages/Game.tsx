@@ -11,6 +11,7 @@ import { generateTile } from "../utils/GameLogic"
 
 import tileFlip from "./../assets/sound/tileFlip.mp3"
 import correct from "./../assets/sound/correct.mp3"
+import BackButton from "../components/BackButton"
 
 const tileFlipSound = new Audio(tileFlip)
 const correctSound = new Audio(correct)
@@ -131,40 +132,41 @@ const Game = () => {
     }
 
     return (
-        <Box component={motion.div} {...fadeTransition}>
-            <Box>
-                <Box sx={{ position: "relative", height: "100px", mb: "20px" }}>
-                    <AnimatePresence>
-                        {!finishLoadTiles &&
-                            <CountdownTimer />
-                        }
-                    </AnimatePresence>
-                    <AnimatePresence>
-                        {finishLoadTiles &&
-                            <Typography
-                                component={motion.h2}
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1, transition: { delay: 0.8 } }}
-                                exit={{ opacity: 0 }}
-                                variant={"h5"} sx={{ position: "absolute", color: "black", top: "55%", width: "100%", textAlign: "center", mb: "10px" }}>
-                                Mistakes: {mistakes}
-                            </Typography>
-                        }
-                    </AnimatePresence>
-                </Box>
-                <Box className="board"
-                    sx={{ width: { xs: "300px", sm: "400px", md: "500px" }, height: "fit-content", background: "#eff3f6", padding: "10px", borderRadius: "5px" }}>
-                    <Grid className="tiles" sx={{ height: "100%", justifyContent: "center" }} columns={{ xs: 4 }} container >
+        <>
+            <BackButton />
+            <Box sx={{py: "40px"}} component={motion.div} {...fadeTransition}>
+                    <Box sx={{ position: "relative", height: "100px", mb: "20px" }}>
                         <AnimatePresence>
-                            {tilesData.map((tileData, id) => (
-                                <Tile finishLoadTiles={finishLoadTiles} isLast={id + 1 === tilesData.length} key={id} type={type!} flipTile={flipTile} tileData={tileData} id={id} trueFlipped={trueFlipped} flipped={flipped} />
-                            ))}
+                            {!finishLoadTiles &&
+                                <CountdownTimer />
+                            }
                         </AnimatePresence>
-                    </Grid>
-                </Box>
+                        <AnimatePresence>
+                            {finishLoadTiles &&
+                                <Typography
+                                    component={motion.h2}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1, transition: { delay: 0.8 } }}
+                                    exit={{ opacity: 0 }}
+                                    variant={"h5"} sx={{ position: "absolute", color: "black", top: "55%", width: "100%", textAlign: "center", mb: "10px" }}>
+                                    Mistakes: {mistakes}
+                                </Typography>
+                            }
+                        </AnimatePresence>
+                    </Box>
+                    <Box className="board"
+                        sx={{ width: { xs: "300px", sm: "400px", md: "500px" }, height: "fit-content", background: "#eff3f6", padding: "10px", borderRadius: "5px" }}>
+                        <Grid className="tiles" sx={{ height: "100%", justifyContent: "center" }} columns={{ xs: 4 }} container >
+                            <AnimatePresence>
+                                {tilesData.map((tileData, id) => (
+                                    <Tile finishLoadTiles={finishLoadTiles} isLast={id + 1 === tilesData.length} key={id} type={type!} flipTile={flipTile} tileData={tileData} id={id} trueFlipped={trueFlipped} flipped={flipped} />
+                                ))}
+                            </AnimatePresence>
+                        </Grid>
+                    </Box>
             </Box>
             <FinishModal mistakes={mistakes} retryGame={retryGame} handleOpen={handleOpen} handleClose={handleClose} openModalFinish={openModalFinish} />
-        </Box>
+        </>
     )
 }
 

@@ -1,7 +1,7 @@
 import { MusicNote, MusicOff } from "@mui/icons-material"
 import { IconButton } from "@mui/material"
-import { useEffect, useState } from "react"
-// import { useEffect, useRef } from "react"
+import { useState } from "react"
+import { ClickSound } from "../utils/Click"
 import bgMusic from "./../assets/sound/bgMusic.mp3"
 
 const bgMusicSound = new Audio(bgMusic)
@@ -20,11 +20,12 @@ const BgMusic = () => {
         if(bgMusicSound.paused) bgMusicSound.play()
         else bgMusicSound.pause()
         setBgMusicIsPlaying(!bgMusicIsPlaying)
+        ClickSound()
     }
 
     return (
         <>
-            <IconButton sx={{position: "absolute", top: "10px", right: "10px"}} onClick={toggleBgMusic} aria-label="delete" size="large">
+            <IconButton sx={{position: "absolute", top: "10px", right: "10px"}} onClick={toggleBgMusic} aria-label="music" size="large">
                 { bgMusicIsPlaying ? (
                     <MusicNote />
                 ) : (
