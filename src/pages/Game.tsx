@@ -11,12 +11,16 @@ import { generateTile } from "../utils/GameLogic"
 
 import tileFlip from "./../assets/sound/tileFlip.mp3"
 import correct from "./../assets/sound/correct.mp3"
+import win from "./../assets/sound/win.mp3"
+
 import BackButton from "../components/BackButton"
 
 const tileFlipSound = new Audio(tileFlip)
 const correctSound = new Audio(correct)
+const winSound = new Audio(win)
 tileFlipSound.volume = 0.5
 correctSound.volume = 0.4
+winSound.volume = 0.4
 
 const Game = () => {
     const [flipped, setFlipped] = useState<number[]>([])
@@ -28,7 +32,10 @@ const Game = () => {
 
 
     const [openModalFinish, setOpenModalFinish] = useState<boolean>(false);
-    const handleOpen = (): void => setOpenModalFinish(true);
+    const handleOpen = (): void => {
+        setOpenModalFinish(true)
+        winSound.play()
+    }
     const handleClose = (): void => setOpenModalFinish(false);
 
     const { level, type } = useParams()
@@ -51,9 +58,7 @@ const Game = () => {
             setTrueFlipped([...trueFlipped, ...flipped])
             correctSound.currentTime = 0
             correctSound.play()
-            // setTimeout(() => {
             setFlipped([])
-            // },)
             if (trueFlipped.length === tilesData.length - 2) {
                 setTimeout(() => {
                     handleOpen()
