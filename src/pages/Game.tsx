@@ -15,10 +15,11 @@ import win from "./../assets/sound/win.mp3"
 
 import BackButton from "../components/BackButton"
 
-const tileFlipSound = new Audio(tileFlip)
+const tileFlipSound: HTMLAudioElement[] = [new Audio(tileFlip), new Audio(tileFlip)]
 const correctSound = new Audio(correct)
 const winSound = new Audio(win)
-tileFlipSound.volume = 0.5
+tileFlipSound[0].volume = 0.5
+tileFlipSound[1].volume = 0.5
 correctSound.volume = 0.4
 winSound.volume = 0.4
 
@@ -46,8 +47,12 @@ const Game = () => {
             if (flipped.length < 2) {
                 if (!trueFlipped.includes(id) && !e.target.closest(".flip")) {
                     setFlipped([...flipped, id])
-                    tileFlipSound.currentTime = 0
-                    tileFlipSound.play()
+                    if (tileFlipSound[0].paused) {
+                        tileFlipSound[0].play()
+                    } else {
+                        tileFlipSound[1].play()
+                    }
+                    // tileFlipSound.currentTime = 0
                 }
             }
         }
@@ -139,36 +144,36 @@ const Game = () => {
     return (
         <>
             <BackButton />
-            <Box sx={{py: "40px"}} component={motion.div} {...fadeTransition}>
-                    <Box sx={{ position: "relative", height: "100px", mb: "20px" }}>
+            <Box sx={{ py: "40px" }} component={motion.div} {...fadeTransition}>
+                <Box sx={{ position: "relative", height: "100px", mb: "20px" }}>
+                    <AnimatePresence>
+                        {!finishLoadTiles &&
+                            <CountdownTimer />
+                        }
+                    </AnimatePresence>
+                    <AnimatePresence>
+                        {finishLoadTiles &&
+                            <Typography
+                                component={motion.h2}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1, transition: { delay: 0.8 } }}
+                                exit={{ opacity: 0 }}
+                                variant={"h5"} sx={{ position: "absolute", color: "black", top: "55%", width: "100%", textAlign: "center", mb: "10px" }}>
+                                Mistakes: {mistakes}
+                            </Typography>
+                        }
+                    </AnimatePresence>
+                </Box>
+                <Box className="board"
+                    sx={{ width: { xs: "300px", sm: "400px", md: "500px" }, height: "fit-content", background: "#eff3f6", padding: "10px", borderRadius: "5px" }}>
+                    <Grid className="tiles" sx={{ height: "100%", justifyContent: "center" }} columns={{ xs: 4 }} container >
                         <AnimatePresence>
-                            {!finishLoadTiles &&
-                                <CountdownTimer />
-                            }
+                            {tilesData.map((tileData, id) => (
+                                <Tile finishLoadTiles={finishLoadTiles} isLast={id + 1 === tilesData.length} key={id} type={type!} flipTile={flipTile} tileData={tileData} id={id} trueFlipped={trueFlipped} flipped={flipped} />
+                            ))}
                         </AnimatePresence>
-                        <AnimatePresence>
-                            {finishLoadTiles &&
-                                <Typography
-                                    component={motion.h2}
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1, transition: { delay: 0.8 } }}
-                                    exit={{ opacity: 0 }}
-                                    variant={"h5"} sx={{ position: "absolute", color: "black", top: "55%", width: "100%", textAlign: "center", mb: "10px" }}>
-                                    Mistakes: {mistakes}
-                                </Typography>
-                            }
-                        </AnimatePresence>
-                    </Box>
-                    <Box className="board"
-                        sx={{ width: { xs: "300px", sm: "400px", md: "500px" }, height: "fit-content", background: "#eff3f6", padding: "10px", borderRadius: "5px" }}>
-                        <Grid className="tiles" sx={{ height: "100%", justifyContent: "center" }} columns={{ xs: 4 }} container >
-                            <AnimatePresence>
-                                {tilesData.map((tileData, id) => (
-                                    <Tile finishLoadTiles={finishLoadTiles} isLast={id + 1 === tilesData.length} key={id} type={type!} flipTile={flipTile} tileData={tileData} id={id} trueFlipped={trueFlipped} flipped={flipped} />
-                                ))}
-                            </AnimatePresence>
-                        </Grid>
-                    </Box>
+                    </Grid>
+                </Box>
             </Box>
             <FinishModal mistakes={mistakes} retryGame={retryGame} handleOpen={handleOpen} handleClose={handleClose} openModalFinish={openModalFinish} />
         </>
