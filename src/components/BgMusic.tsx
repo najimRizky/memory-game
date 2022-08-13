@@ -26,13 +26,15 @@ const BgMusic = () => {
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
+        ClickSound()
     }
     const handleClose = () => {
         setAnchorEl(null);
+        ClickSound()
     }
 
     const toggleBgMusic = (e: any) => {
-        ClickSound()
+        // ClickSound()
         handleClick(e)
     }
 
@@ -55,7 +57,7 @@ const BgMusic = () => {
 
     return (
         <>
-            <IconButton sx={{ position: "absolute", top: "10px", right: "10px" }} onClick={toggleBgMusic} aria-label="music" size="large">
+            <IconButton sx={{ position: "absolute", top: "10px", right: "10px", zIndex: 1 }} onClick={toggleBgMusic} aria-label="music" size="large">
                 {bgMusicIsPlaying ? (
                     <MusicNote />
                 ) : (
