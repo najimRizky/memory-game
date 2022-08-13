@@ -1,6 +1,7 @@
 import { Backdrop, Box, Button, Fade, Modal, Typography } from "@mui/material";
 // import { useState } from "react";
 import { Link } from "react-router-dom";
+import { ClickSound } from "../utils/Click";
 
 type Props = {
     mistakes: number,
@@ -44,9 +45,9 @@ const FinishModal = (props: Props) => {
                             Congratulations! You finish this game with <b>{props.mistakes}</b> mistakes
                         </Typography>
                         <Box sx={{textAlign: "center", mt: "20px"}}>
-                            <Button onClick={props.retryGame} variant="contained" sx={{mr: "10px"}} color="success" >Retry</Button>
+                            <Button onClick={() => {props.retryGame(); ClickSound()}} variant="contained" sx={{mr: "10px"}} color="success" >Retry</Button>
                             <Link to={"/play"} style={{textDecoration: "none"}}>
-                                <Button variant="contained" color="secondary" >Change Mode</Button>
+                                <Button onClick={ClickSound} variant="contained" color="secondary" >Change Mode</Button>
                             </Link>
                         </Box>
                     </Box>
