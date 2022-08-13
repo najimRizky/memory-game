@@ -143,7 +143,7 @@ const Game = () => {
 
     return (
         <>
-            <BackButton />
+            <BackButton destination="/play" />
             <Box sx={{ py: "40px" }} component={motion.div} {...fadeTransition}>
                 <Box sx={{ position: "relative", height: "100px", mb: "20px" }}>
                     <AnimatePresence>

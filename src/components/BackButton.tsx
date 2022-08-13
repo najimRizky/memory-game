@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom"
 import { ClickSound } from "../utils/Click"
 
 type Props = {
-	style?: object | undefined
+	style?: object
+	destination?: string
 }
 
 const BackButton = (props: Props) => {
@@ -12,12 +13,16 @@ const BackButton = (props: Props) => {
 
 	const goToBack = () => {
 		ClickSound()
-		navigate(-1)
+		if(props.destination === undefined){
+			navigate(-1)
+		}else{
+			navigate(props.destination)
+		}
 	}
 
 	return (
 		<IconButton 
-			sx={props.style === undefined ? { position: "absolute", top: "10px", left: "10px" } : { ...props.style! }}
+			sx={props.style === undefined ? { position: "absolute", top: "10px", left: "10px" } : { ...props.style }}
 			onClick={goToBack} aria-label="music" size="large">
 			<ArrowBackIosNew />
 		</IconButton>

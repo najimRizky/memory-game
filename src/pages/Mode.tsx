@@ -40,7 +40,7 @@ const Mode = () => {
 
     return (
         <>
-            <BackButton />
+            <BackButton destination="/" />
             <Box sx={{ transform: "unset" }} component={motion.div} className="mode" {...slideTransition}>
                 <Typography variant="body1" component="p" sx={{ textAlign: "center", mb: "20px" }}>
                     Chose level:
