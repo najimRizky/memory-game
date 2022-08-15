@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Tab, Tabs, Typography } from '@mui/material'
+import { Box, Button, Divider, FormControl, FormControlLabel, Radio, RadioGroup, Tab, Tabs, Tooltip, Typography } from '@mui/material'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Level from "./../rules/Level.json"
@@ -8,11 +8,15 @@ import { slideTransition } from '../animation/pagesTransition';
 import { ClickSound, ClickSound2 } from '../utils/Click';
 import BackButton from '../components/BackButton';
 
+import mistakeImg from "./../assets/mistake.png"
+import timerImg from "./../assets/timer.png"
+
 // type Props = {}
 
 const Mode = () => {
     const [level, setLevel] = useState<number>(0);
     const [type, setType] = useState<string>("color");
+    const [mode, setMode] = useState<string>("mistake");
     const navigate = useNavigate()
 
     const handleChange = (event: React.SyntheticEvent, newLevel: number): void => {
@@ -28,7 +32,7 @@ const Mode = () => {
     }
 
     const goToGame = (): void => {
-        navigate(`${Level[level].level}/${type}`)
+        navigate(`${Level[level].level}/${type}/${mode}`)
     }
 
     const changeType = (newType: string) => {
@@ -38,6 +42,11 @@ const Mode = () => {
         }
     }
 
+    const changeMode = (e: React.ChangeEvent<HTMLInputElement>, val: string) => {
+        setMode(val)
+        ClickSound2()
+    }
+
     return (
         <>
             <BackButton destination="/" />
@@ -45,16 +54,60 @@ const Mode = () => {
                 <Typography variant="body1" component="p" sx={{ textAlign: "center", mb: "20px" }}>
                     Chose level:
                 </Typography>
-                <Box sx={{ mb: "20px" }}>
+                <Box >
                     <Tabs value={level} onChange={handleChange} aria-label="basic tabs example">
                         {Level.map((lvl, id) => (
                             <Tab sx={{ textTransform: "capitalize" }} label={lvl.level.replaceAll("_", " ")} {...a11yProps(id)} key={id} />
                         ))}
                     </Tabs>
                 </Box>
-                <Divider sx={{ mb: "20px" }} />
+                <Divider sx={{ my: "20px" }} />
                 <Typography variant="body1" component="p" sx={{ textAlign: "center", mb: "20px" }}>
                     Choose mode:
+                </Typography>
+                <Box sx={{ display: "flex", justifyContent: "center" }}>
+                    <FormControl>
+                        <RadioGroup
+                            row
+                            aria-labelledby="demo-form-control-label-placement"
+                            name="position"
+                            defaultValue={mode}
+                            onChange={changeMode}
+                            value={mode}
+                        >
+                            <FormControlLabel
+                                value="mistake"
+                                control={<Radio />}
+                                label={
+                                    <Tooltip placement='top' title="Complete the game with no mistake">
+                                        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                                            <img width={"64px"} src={mistakeImg} alt=""></img>
+                                            <Typography>No Mistake</Typography>
+                                        </Box>
+                                    </Tooltip>
+                                }
+                                labelPlacement="top"
+                            />
+                            <FormControlLabel
+                                value="timer"
+                                control={<Radio />}
+                                label={
+                                    <Tooltip placement='top' title="Complete the game as quick as possible">
+                                        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                                            <img width={"64px"} src={timerImg} alt=""></img>
+                                            <Typography>Time Trial</Typography>
+                                        </Box>
+                                    </Tooltip>
+                                }
+                                labelPlacement="top"
+                            />
+                        </RadioGroup>
+                    </FormControl>
+                </Box>
+
+                <Divider sx={{ my: "20px" }} />
+                <Typography variant="body1" component="p" sx={{ textAlign: "center", mb: "20px" }}>
+                    Choose type:
                 </Typography>
                 <Box className="modeListContainer">
                     <Box sx={{ display: "flex", mb: "20px" }} className="modeList">

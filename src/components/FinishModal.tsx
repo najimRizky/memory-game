@@ -8,7 +8,8 @@ type Props = {
     retryGame: any,
     handleOpen: any,
     handleClose: any,
-    openModalFinish: boolean
+    openModalFinish: boolean,
+    mode: string
 }
 
 const style: object = {
@@ -21,7 +22,7 @@ const style: object = {
     outline: "none",
     boxShadow: 24,
     p: 4,
-    borderRadius: "5px"
+    borderRadius: "5px",
 };
 
 const FinishModal = (props: Props) => {
@@ -42,7 +43,15 @@ const FinishModal = (props: Props) => {
                 <Fade in={props.openModalFinish}>
                     <Box sx={style}>
                         <Typography id="transition-modal-title" sx={{textAlign: "center", fontWeight: "normal"}} variant="h6" component="h3">
-                            Congratulations! You finish this game with <b>{props.mistakes}</b> mistakes
+                            {props.mode === "mistake" ? 
+                            <>
+                                Congratulations! You finish this game with <b>{props.mistakes}</b> mistakes
+                            </>
+                            : 
+                            <>
+                                Congratulations! You finish this game in <b>{document.querySelector(".timer #timerText")?.textContent}</b>
+                            </>
+                            }
                         </Typography>
                         <Box sx={{textAlign: "center", mt: "20px"}}>
                             <Button onClick={() => {props.retryGame(); ClickSound()}} variant="contained" sx={{mr: "10px"}} color="success" >Retry</Button>

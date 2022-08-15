@@ -14,6 +14,7 @@ import correct from "./../assets/sound/correct.mp3"
 import win from "./../assets/sound/win.mp3"
 
 import BackButton from "../components/BackButton"
+import Timer from "../components/Timer/Timer"
 
 const tileFlipSound: HTMLAudioElement[] = [new Audio(tileFlip), new Audio(tileFlip)]
 const correctSound = new Audio(correct)
@@ -27,19 +28,19 @@ const Game = () => {
     const [flipped, setFlipped] = useState<number[]>([])
     const [tilesData, setTilesData] = useState<string[]>([])
     const [trueFlipped, setTrueFlipped] = useState<number[]>([])
+
+    const { level, type, mode } = useParams()
     const [mistakes, setMistakes] = useState<number>(0)
 
     const [finishLoadTiles, setFinishLoadTiles] = useState<boolean>(false)
-
-
     const [openModalFinish, setOpenModalFinish] = useState<boolean>(false);
+
     const handleOpen = (): void => {
         setOpenModalFinish(true)
         winSound.play()
     }
     const handleClose = (): void => setOpenModalFinish(false);
 
-    const { level, type } = useParams()
     const navigate = useNavigate()
 
     const flipTile = (id: number, e: any): void => {
@@ -52,7 +53,6 @@ const Game = () => {
                     } else {
                         tileFlipSound[1].play()
                     }
-                    // tileFlipSound.currentTime = 0
                 }
             }
         }
@@ -84,6 +84,7 @@ const Game = () => {
         }
         // eslint-disable-next-line
     }, [])
+
     useEffect(() => {
         if (flipped.length === 2) {
             checkFlipped()
@@ -110,9 +111,7 @@ const Game = () => {
 
         return (
             <div className="timer" style={{ textAlign: "center" }}>
-                {/* <div className="text">Remembering time</div> */}
                 <Typography variant="h4" style={{ margin: "0" }} className="value">{remainingTime}</Typography>
-                {/* <div className="text">seconds</div> */}
             </div>
         );
     };
@@ -152,15 +151,25 @@ const Game = () => {
                         }
                     </AnimatePresence>
                     <AnimatePresence>
-                        {finishLoadTiles &&
-                            <Typography
-                                component={motion.h2}
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1, transition: { delay: 0.8 } }}
-                                exit={{ opacity: 0 }}
-                                variant={"h5"} sx={{ position: "absolute", color: "black", top: "55%", width: "100%", textAlign: "center", mb: "10px" }}>
-                                Mistakes: {mistakes}
-                            </Typography>
+                        {finishLoadTiles && (
+                            <>
+                                {mode === "mistake" ? (
+                                    <Typography
+                                        component={motion.h2}
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1, transition: { delay: 0.8 } }}
+                                        exit={{ opacity: 0 }}
+                                        variant={"h5"} 
+                                        sx={{ position: "absolute", color: "black", top: "55%", width: "100%", textAlign: "center", mb: "10px" }}>
+                                        Mistakes: {mistakes}
+                                    </Typography>
+                                ) : (
+                                    <Timer openModalFinish={openModalFinish}  />
+                                )
+                            }
+                            </>
+                        )
+
                         }
                     </AnimatePresence>
                 </Box>
@@ -175,7 +184,7 @@ const Game = () => {
                     </Grid>
                 </Box>
             </Box>
-            <FinishModal mistakes={mistakes} retryGame={retryGame} handleOpen={handleOpen} handleClose={handleClose} openModalFinish={openModalFinish} />
+            <FinishModal mode={mode!} mistakes={mistakes} retryGame={retryGame} handleOpen={handleOpen} handleClose={handleClose} openModalFinish={openModalFinish} />
         </>
     )
 }
