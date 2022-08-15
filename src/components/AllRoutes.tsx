@@ -16,7 +16,7 @@ const AllRoutes = () => {
                 <Route path="/play/:level/:type" element={<Game />} /> */}
                 <Route path="/play">
                     <Route index element={<Mode />} />
-                    <Route path=":level/:type" element={<Game />} />
+                    <Route path=":level/:type/:mode" element={<Game />} />
                 </Route>
                 <Route path='*' element={<Home />} />
             </Routes>
