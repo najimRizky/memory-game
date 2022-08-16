@@ -69,7 +69,14 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Simple Memory Game][product-screenshot]](https://memory-game-lemon-mu.vercel.app/)
+You could just use some HTML in your Markdown:
+<p align="center">
+  <img src="https://github.com/najimRizky/memory-game/blob/master/imageReadme/memory-game.png" alt="drawing" width="320"/>
+  <img src="https://github.com/najimRizky/memory-game/blob/master/imageReadme/memory-game2.png" alt="drawing" width="320"/>
+  <img src="https://github.com/najimRizky/memory-game/blob/master/imageReadme/memory-game3.png" alt="drawing" width="320"/>
+</p>
+
+<!-- [![Simple Memory Game](https://github.com/najimRizky/memory-game/blob/master/imageReadme/memory-game.png)](https://memory-game-lemon-mu.vercel.app/) -->
 
 The main background of making this mini project is to fill my spare time. Besides that, I've never implemented any tech stack. That's why I created a mini project called "simple memory game". As the name implies, this is a game that can cultivate your memory skills. Although I actually also don't know if it works or not. There are several levels, modes, and types in this game. You can choose it according to your preference.
 
