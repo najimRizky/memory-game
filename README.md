@@ -69,7 +69,6 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-You could just use some HTML in your Markdown:
 <p align="center">
   <img src="https://github.com/najimRizky/memory-game/blob/master/imageReadme/memory-game.png" alt="drawing" width="320"/>
   <img src="https://github.com/najimRizky/memory-game/blob/master/imageReadme/memory-game2.png" alt="drawing" width="320"/>
